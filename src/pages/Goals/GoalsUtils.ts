@@ -1,4 +1,4 @@
-import { GoalsData, constantPriorities, constantStatuses } from "./GoalsData";
+import { GoalsData, constantPriorities, constantStatuses } from "./GoalsDataOriginal";
 import { goalStatCategory } from "./GoalsTypes";
 import s from "./Goals.module.scss";
 
@@ -73,7 +73,8 @@ interface StoredPriority {
    timestamp: number;
 }
 
-export const getGoalsStatsList = (): goalStatCategory => {
+export const getGoalsStatsList = (t?: (key: string) => string): goalStatCategory => {
+  const _t = t || ((key: string) => key);
    const stats =  calculateAllProjectStats();
    let abandonedProjectsCount: number;
    if (stats.allProjectsCount > 0) {
@@ -150,42 +151,42 @@ export const getGoalsStatsList = (): goalStatCategory => {
    return {
       "all-projects": {
          id: "all-projects",
-         title: "Всего кол-во проектов",
+         title: _t("stats.all-projects"),
          count: stats.allProjectsCount,
       },
       "abandoned-projects": {
          id: "abandoned-projects",
-         title: "Временно заброшенные проекты",
+         title: _t("stats.abandoned-projects"),
          count: abandonedProjectsCount,
       },
       "work-priority": {
          id: "work-priority",
-         title: "Приоритет работы (повышается в случае простоя)",
+         title: _t("stats.work-priority"),
          count: workPriority,
       },
       "all-goals": {
          id: "all-goals",
-         title: "Всего целей (за исключением выполненных)",
+         title: _t("stats.all-goals"),
          count: stats.totalActiveGoals,
       },
       "in-process-goals": {
          id: "in-process-goals",
-         title: "Цели в процессе",
+         title: _t("stats.in-process-goals"),
          count: stats.inProcessGoals,
       },
       "awaiting-goals": {
          id: "awaiting-goals",
-         title: "Ожидают цели",
+         title: _t("stats.awaiting-goals"),
          count: stats.awaitingGoals,
       },
       "completed-goals": {
          id: "completed-goals",
-         title: "Выполненные цели",
+         title: _t("stats.completed-goals"),
          count: stats.completedGoals,
       },
       "abandoned-goals": {
          id: "abandoned-goals",
-         title: "Заброшенные цели",
+         title: _t("stats.abandoned-goals"),
          count: stats.abandonedGoals,
       },
    };

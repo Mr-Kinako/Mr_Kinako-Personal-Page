@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CardContainer } from "@/components/UI-Kit/CardContainer";
 import { Footer } from "@/components/Footer";
-import { GoalsData } from "./GoalsData";
+import { GoalsData } from "./GoalsDataOriginal";
 import { getGoalsStatsList, PRIORITY_CLASSES, STATUS_CLASSES } from "./GoalsUtils";
-
-import s from "./Goals.module.scss";
 import { Button } from "@/components/UI-Kit";
 import { goalStatCategory } from "./GoalsTypes";
+import { useTranslation } from "@/i18n";
+import { useProjectTranslation } from "@/i18n/useProjectTranslation";
+import styles from "./Goals.module.scss";
 
 interface GoalsProps {
   stats?: goalStatCategory;
@@ -16,7 +17,11 @@ interface GoalsProps {
 const BATCH_SIZE = 1;
 
 export const Goals = ({ stats }: GoalsProps) => {
-  const currentStats = stats || getGoalsStatsList();
+  const { t } = useTranslation();
+  const { getProject, getTask } = useProjectTranslation();
+
+  const currentStats = stats || getGoalsStatsList(t);
+
   const [isPriorityModalOpen, setIsPriorityModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
@@ -51,124 +56,131 @@ export const Goals = ({ stats }: GoalsProps) => {
 
   return (
     <>
-      <div className={s.goalsPage}>
+      <div className={styles.goalsPage}>
         {isPriorityModalOpen &&
           createPortal(
-            <div className={s.modalOverlay} onClick={() => setIsPriorityModalOpen(false)}>
-              <CardContainer customClass={s.modalContent} onClick={(e) => e.stopPropagation()}>
-                <div className={s.modalHeader}>
-                  <h3>Формула расчёта приоритета</h3>
-                  <button className={s.closeBtn} onClick={() => setIsPriorityModalOpen(false)}>
+            <div className={styles.modalOverlay} onClick={() => setIsPriorityModalOpen(false)}>
+              <CardContainer customClass={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.modalHeader}>
+                  <h3>{t("goals.priorityModalTitle")}</h3>
+                  <button className={styles.closeBtn} onClick={() => setIsPriorityModalOpen(false)}>
                     ✕
                   </button>
                 </div>
 
-                <div className={s.modalBody}>
-                  <p>
-                    Приоритет находится в жёстком диапазоне от <strong>1.000</strong> (высокий) до{" "}
-                    <strong>40.000</strong> (низкий).
-                  </p>
+                <div className={styles.modalBody}>
+                  <p>{t("goals.priorityModal.range")}</p>
                   <ul>
-                    <li>
-                      <strong>Backlog Score:</strong> Учитывает заброшенные и ожидающие задачи.
-                    </li>
-                    <li>
-                      <strong>Critical Anomalies:</strong> Заброшенные задачи с высоким/средним
-                      приоритетом сильно снижают число.
-                    </li>
-                    <li>
-                      <strong>Abstraction parameters:</strong> longtime, deadline, moral и myself
-                      price.
-                    </li>
+                    <li>{t("goals.priorityModal.backlogScore")}</li>
+                    <li>{t("goals.priorityModal.criticalAnomalies")}</li>
+                    <li>{t("goals.priorityModal.abstractionParams")}</li>
                   </ul>
-                  <p className={s.modalNote}>Обновляется автоматически каждые 24 часа.</p>
+                  <p className={styles.modalNote}>{t("goals.priorityModal.updateNote")}</p>
                 </div>
               </CardContainer>
             </div>,
             document.body,
           )}
-        <CardContainer customClass={s.headerContainer}>
-          <div className={s.headerInfo}>
-            <h1 className={s.headerTitle}>Мои зафиксированные цели</h1>
-            <div className={s.headerDesc}>
-              Тут находится общий свод данных, в виде количества чего-то конкретного.
-            </div>
+
+        <CardContainer customClass={styles.headerContainer}>
+          <div className={styles.headerInfo}>
+            <h1 className={styles.headerTitle}>{t("goals.title")}</h1>
+            <div className={styles.headerDesc}>{t("goals.description")}</div>
           </div>
 
-          <div className={s.headerStatsContainer}>
-            <CardContainer customClass={s.editContainer}>
+          <div className={styles.headerStatsContainer}>
+            <CardContainer customClass={styles.editContainer}>
               {Object.values(currentStats).map((item) => {
                 const isPriorityCard = item.id === "work-priority";
 
                 return (
                   <div
                     key={item.id}
-                    className={`${s.goalItem} ${isPriorityCard ? s.clickable : ""}`}
+                    className={`${styles.goalItem} ${isPriorityCard ? styles.clickable : ""}`}
                     onClick={() => isPriorityCard && setIsPriorityModalOpen(true)}
                   >
-                    <span className={s.count}>{item.count}</span>
-                    <h5 className={s.title}>{item.title}</h5>
+                    <span className={styles.count}>{item.count}</span>
+                    <h5 className={styles.title}>{item.title}</h5>
                   </div>
                 );
               })}
             </CardContainer>
           </div>
         </CardContainer>
+
         {isLoading ? (
-          <div className={s.loaderFallback}>Загрузка целей...</div>
+          <div className={styles.loaderFallback}>{t("goals.loading")}</div>
         ) : (
-          <div className={s.tasksContainer}>
+          <div className={styles.tasksContainer}>
             {visibleProjects.map(([projectKey, project]) => {
+              const projectTranslation = getProject(projectKey);
               const tasks = Object.entries(project.content || {});
               const goalsCount = tasks.length;
 
               return (
-                <CardContainer key={projectKey} customClass={s.projectCard}>
-                  <div className={s.projectHeaderTitle}>
-                    <div className={s.projectInfoContainer}>
-                      <h3 className={s.projectTitle}>{project.title}</h3>
-                      <div className={s.projectGoals}>
-                        <span>{goalsCount} целей</span>
+                <CardContainer key={projectKey} customClass={styles.projectCard}>
+                  <div className={styles.projectHeaderTitle}>
+                    <div className={styles.projectInfoContainer}>
+                      <h3 className={styles.projectTitle}>
+                        {projectTranslation?.title || project.title}
+                      </h3>
+                      <div className={styles.projectGoals}>
+                        <span>
+                          {goalsCount} {t("goals.goalsCount")}
+                        </span>
                       </div>
                     </div>
-                    {project.description && <p className={s.projectDesc}>{project.description}</p>}
+                    {project.description && (
+                      <p className={styles.projectDesc}>
+                        {projectTranslation?.description || project.description}
+                      </p>
+                    )}
                   </div>
 
                   {tasks.length > 0 ? (
-                    <ul className={s.taskList}>
-                      {tasks.map(([taskKey, task]) =>
-                        task.title || task.description ? (
-                          <CardContainer key={taskKey} customClass={s.contentContainer}>
-                            <div className={s.taskInfoContainer}>
-                              <h4 className={s.taskTitle}>{task.title}</h4>
-                              <p className={s.taskDesc}>{task.description}</p>
+                    <ul className={styles.taskList}>
+                      {tasks.map(([taskKey, task]) => {
+                        const taskTranslation = getTask(projectKey, taskKey);
+
+                        return task.title || task.description ? (
+                          <CardContainer key={taskKey} customClass={styles.contentContainer}>
+                            <div className={styles.taskInfoContainer}>
+                              <h4 className={styles.taskTitle}>
+                                {taskTranslation?.title || task.title}
+                              </h4>
+                              <p className={styles.taskDesc}>
+                                {taskTranslation?.description || task.description}
+                              </p>
                             </div>
 
-                            <div className={s.taskMeta}>
+                            <div className={styles.taskMeta}>
                               {STATUS_CLASSES[task.status] && (
-                                <span className={`${s.metaItem} ${STATUS_CLASSES[task.status]}`}>
-                                  {task.status}
+                                <span
+                                  className={`${styles.metaItem} ${STATUS_CLASSES[task.status]}`}
+                                >
+                                  {t(`goals.status.${task.status}`)}
                                 </span>
                               )}
+
                               {PRIORITY_CLASSES[task.priority] && (
                                 <span
-                                  className={`${s.metaItem} ${PRIORITY_CLASSES[task.priority] || ""}`}
+                                  className={`${styles.metaItem} ${PRIORITY_CLASSES[task.priority] || ""}`}
                                 >
-                                  {task.priority}
+                                  {t(`goals.priority.${task.priority}`)}
                                 </span>
                               )}
                             </div>
                           </CardContainer>
                         ) : (
-                          <div key={taskKey} className={s.emptyContentFallback}>
-                            <span>Существует задача, но её основные поля отсутствуют.</span>
+                          <div key={taskKey} className={styles.emptyContentFallback}>
+                            <span>{t("goals.emptyTask")}</span>
                           </div>
-                        ),
-                      )}
+                        );
+                      })}
                     </ul>
                   ) : (
-                    <div className={s.emptyContentFallback}>
-                      <span>Задачи для этого проекта пока не сформированы.</span>
+                    <div className={styles.emptyContentFallback}>
+                      <span>{t("goals.emptyProject")}</span>
                     </div>
                   )}
                 </CardContainer>
@@ -176,8 +188,8 @@ export const Goals = ({ stats }: GoalsProps) => {
             })}
 
             {visibleCount < allProjects.length && (
-              <Button customClass={s.loadMoreBtn} onClick={loadMore}>
-                Показать ещё проекты ({allProjects.length - visibleCount})
+              <Button customClass={styles.loadMoreBtn} onClick={loadMore}>
+                {t("goals.loadMore", { count: allProjects.length - visibleCount })}
               </Button>
             )}
           </div>

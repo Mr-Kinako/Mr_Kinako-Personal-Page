@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { I18nProvider } from "./i18n/I18nProvider.tsx";
 import "@/styles/_variables.scss";
 import "@/styles/_theme.scss";
 
@@ -9,11 +10,13 @@ import App from "./App.tsx";
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
-   throw new Error("Failed to find the root element");
+  throw new Error("Failed to find the root element");
 }
 
 createRoot(rootElement).render(
-   <StrictMode>
+  <StrictMode>
+    <I18nProvider>
       <App />
-   </StrictMode>,
+    </I18nProvider>
+  </StrictMode>,
 );

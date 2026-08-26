@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { HistoryItem, WindowState } from "./types";
 import { parseCommand } from "./core/parser";
 import { executeCommand } from "./core/CommandExec";
+import { useTranslation } from "@/i18n";
 import styles from "./CommandLine.module.scss";
 
 export const CommandLine: React.FC = () => {
@@ -13,6 +14,7 @@ export const CommandLine: React.FC = () => {
 
   const [inputVal, setInputVal] = useState<string>("");
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +57,7 @@ export const CommandLine: React.FC = () => {
         return;
       }
 
-      const execResult = await executeCommand(parsed);
+      const execResult = await executeCommand(parsed, t);
 
       const newItem: HistoryItem = {
         id: `${Date.now()}-${Math.random()}`,

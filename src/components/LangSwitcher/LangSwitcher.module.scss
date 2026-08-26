@@ -1,0 +1,41 @@
+@use "@/styles/_theme.scss" as *;
+
+.switcher {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  margin: 8px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--bg-content-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: none;
+  transition: var(--transition-base);
+  z-index: 10000;
+
+  &:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+
+  span {
+    opacity: 0.5;
+    transition: var(--transition-base);
+  }
+
+  .active {
+    opacity: 1;
+    color: var(--accent-primary);
+  }
+
+  .divider {
+    opacity: 0.3;
+    user-select: none;
+  }
+}

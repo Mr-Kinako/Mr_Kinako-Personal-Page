@@ -1,17 +1,17 @@
 import { ProjectData } from "./GoalsTypes";
 
 export const constantPriorities = {
-   "high": "Высокий",
-   "medium": "Средний",
-   "low": "Низкий",
+   high: "high",
+   medium: "medium",
+   low: "low",
 } as const;
 
 export const constantStatuses = {
-   "completed": "Выполнено",
-   "inProcess": "В процессе",
-   "awaiting": "Ожидает",
-   "frozen": "Заморожено",
-   "abandoned": "Заброшено"
+   completed: "completed",
+   inProcess: "inProcess",
+   awaiting: "awaiting",
+   frozen: "frozen",
+   abandoned: "abandoned"
 } as const;
 
 export const GoalsData: Record<string, ProjectData> = {

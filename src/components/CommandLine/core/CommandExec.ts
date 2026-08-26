@@ -5,7 +5,10 @@ import { COMMANDS_REGISTRY } from './commands';
  * Главный диспетчер выполнения команд.
  * Гарантирует отказоустойчивость: перехватывает любые runtime-ошибки внутри команд.
  */
-export async function executeCommand(parsed: ParsedCommand): Promise<ExecutionResult> {
+export async function executeCommand(
+  parsed: ParsedCommand,
+  t: (key: string, vars?: Record<string, string | number>) => string
+): Promise<ExecutionResult> {
   const startTime = performance.now();
   console.log(`[kinako.sh:exec] Старт выполнения команды: "${parsed.name}"`, {
     args: parsed.args,
@@ -19,13 +22,13 @@ export async function executeCommand(parsed: ParsedCommand): Promise<ExecutionRe
       console.warn(`[kinako.sh:exec] Команда "${parsed.name}" не найдена в реестре.`);
       return {
         success: false,
-        output: `Команда "${parsed.name}" не найдена. Введите -help для списка доступных команд.`,
+        output: t("commandLine.unknown", { command: parsed.name }),
       };
     }
 
     // Выполняем логику команды (поддерживает как синхронный, так и async вызов)
     const result = await Promise.resolve(commandDef.execute(parsed.args));
-    
+
     console.log(`[kinako.sh:exec] Команда "${parsed.name}" успешно завершена.`, result);
     return result;
 
@@ -36,13 +39,13 @@ export async function executeCommand(parsed: ParsedCommand): Promise<ExecutionRe
       criticalError
     );
 
-    const errInstance = criticalError instanceof Error 
-      ? criticalError 
+    const errInstance = criticalError instanceof Error
+      ? criticalError
       : new Error(String(criticalError));
 
     return {
       success: false,
-      output: `[System Error] Произошел внутренний сбой при выполнении команды "${parsed.name}".`,
+      output: t("commandLine.systemError", { command: parsed.name }),
       error: errInstance,
     };
   } finally {

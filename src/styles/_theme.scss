@@ -1,70 +1,105 @@
 [data-theme="lightblue"] {
-   --bg-primary: #e0f2f1;
-   --bg-secondary: #b2dfdb;
-   --bg-content: rgba(255, 255, 255, 0.6);
-   --bg-content-border: rgba(255, 255, 255, 0.5);
-   --text-primary: #004d40;
-   --text-secondary: #00695c;
-   --accent: #26a69a;
-   --nav-bg: rgba(224, 242, 241, 0.8);
-   --scrollbar: #80cbc4;
+  --bg-primary: #e0f2f1;
+  --bg-secondary: #b2dfdb;
+  --bg-content: rgba(255, 255, 255, 0.6);
+  --bg-content-border: rgba(255, 255, 255, 0.5);
+  --text-primary: #004d40;
+  --text-secondary: #00695c;
+  --accent: #26a69a;
+  --nav-bg: rgba(224, 242, 241, 0.8);
+  --scrollbar: #80cbc4;
+
+  // Mango SVG colors
+  --mango-body: #fbbf24;
+  --mango-highlight: #fde68a;
+  --mango-outline: #d97706;
+  --mango-leaf: #4ade80;
+  --mango-leaf-stem: #22c55e;
 }
 
 [data-theme="purple"] {
-   --bg-primary: #f3e5f5;
-   --bg-secondary: #e1bee7;
-   --bg-content: rgba(255, 255, 255, 0.6);
-   --bg-content-border: rgba(255, 255, 255, 0.5);
-   --text-primary: #4a148c;
-   --text-secondary: #6a1b9a;
-   --accent: #ab47bc;
-   --nav-bg: rgba(243, 229, 245, 0.8);
-   --scrollbar: #ce93d8;
+  --bg-primary: #f3e5f5;
+  --bg-secondary: #e1bee7;
+  --bg-content: rgba(255, 255, 255, 0.6);
+  --bg-content-border: rgba(255, 255, 255, 0.5);
+  --text-primary: #4a148c;
+  --text-secondary: #6a1b9a;
+  --accent: #ab47bc;
+  --nav-bg: rgba(243, 229, 245, 0.8);
+  --scrollbar: #ce93d8;
+
+  // Mango SVG colors
+  --mango-body: #fbbf24;
+  --mango-highlight: #fde68a;
+  --mango-outline: #d97706;
+  --mango-leaf: #4ade80;
+  --mango-leaf-stem: #22c55e;
 }
 
 /* Тёмная тема по умолчанию */
 :root,
 [data-theme="dark"] {
-   --bg-primary: #18181b;
-   --bg-secondary: #27272a;
-   --bg-content: rgba(39, 39, 42, 0.5);
-   --bg-content-border: rgba(255, 255, 255, 0.08);
-   --text-primary: #f4f4f5;
-   --text-secondary: #a1a1aa;
-   --accent: #ff9567;
-   --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
-   --nav-bg: rgba(24, 24, 27, 0.6);
-   --scrollbar: #3f3f46;
+  --bg-primary: #18181b;
+  --bg-secondary: #27272a;
+  --bg-content: rgba(39, 39, 42, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --accent: #ff9567;
+  --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
+  --nav-bg: rgba(24, 24, 27, 0.6);
+  --scrollbar: #3f3f46;
+
+  // Mango SVG colors
+  --mango-body: #fbbf24;
+  --mango-highlight: #fde68a;
+  --mango-outline: #d97706;
+  --mango-leaf: #4ade80;
+  --mango-leaf-stem: #22c55e;
 }
 
 /* Поддержка системной темы при data-theme="auto" или отсутствии атрибута */
 @media (prefers-color-scheme: light) {
-   :root:not([data-theme]),
-   [data-theme="auto"] {
-      --bg-primary: #f8fafc;
-      --bg-secondary: #f1f5f9;
-      --bg-content: rgba(255, 255, 255, 0.7);
-      --bg-content-border: rgba(0, 0, 0, 0.1);
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --accent: #da8059;
-      --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
-      --nav-bg: rgba(248, 250, 252, 0.7);
-      --scrollbar: #cbd5e1;
-   }
+  :root:not([data-theme]),
+  [data-theme="auto"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --bg-content: rgba(255, 255, 255, 0.7);
+    --bg-content-border: rgba(0, 0, 0, 0.1);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #da8059;
+    --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
+    --nav-bg: rgba(248, 250, 252, 0.7);
+    --scrollbar: #cbd5e1;
+
+    // Mango SVG colors
+    --mango-body: #fbbf24;
+    --mango-highlight: #fde68a;
+    --mango-outline: #d97706;
+    --mango-leaf: #4ade80;
+    --mango-leaf-stem: #22c55e;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-   [data-theme="auto"] {
-      --bg-primary: #18181b;
-      --bg-secondary: #27272a;
-      --bg-content: rgba(39, 39, 42, 0.5);
-      --bg-content-border: rgba(255, 255, 255, 0.08);
-      --text-primary: #f4f4f5;
-      --text-secondary: #a1a1aa;
-      --accent: #ff9567;
-      --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
-      --nav-bg: rgba(24, 24, 27, 0.6);
-      --scrollbar: #3f3f46;
-   }
+  [data-theme="auto"] {
+    --bg-primary: #18181b;
+    --bg-secondary: #27272a;
+    --bg-content: rgba(39, 39, 42, 0.5);
+    --bg-content-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --accent: #ff9567;
+    --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
+    --nav-bg: rgba(24, 24, 27, 0.6);
+    --scrollbar: #3f3f46;
+
+    // Mango SVG colors
+    --mango-body: #fbbf24;
+    --mango-highlight: #fde68a;
+    --mango-outline: #d97706;
+    --mango-leaf: #4ade80;
+    --mango-leaf-stem: #22c55e;
+  }
 }
