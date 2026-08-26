@@ -6,6 +6,7 @@ export const STATUS_CLASSES: Record<string, string> = {
    [constantStatuses.completed]: s.statusCompleted,
    [constantStatuses.inProcess]: s.statusInProcess,
    [constantStatuses.awaiting]: s.statusAwaiting,
+   [constantStatuses.frozen]: s.statusFrozen,
    [constantStatuses.abandoned]: s.statusAbandoned,
 }
 export const PRIORITY_CLASSES: Record<string, string> = {
@@ -112,9 +113,9 @@ export const getGoalsStatsList = (): goalStatCategory => {
       const importantAnomalies = (stats.abandonedMediumGoals * 0.5);
       console.log("importantAnomalies: " + importantAnomalies.toFixed(3));
 
-      const rawLongtime = 4.0;
-      const rawDeadline = 0.1;
-      const rawMoral = 0.37;
+      const rawLongtime = 1.0;
+      const rawDeadline = 0.0;
+      const rawMoral = 0.537;
       const rawMyselfPrice = 6.9;
       // ----------
       const longtime = Math.min(30.0, Math.max(0.0, rawLongtime));

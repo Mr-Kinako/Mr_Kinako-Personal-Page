@@ -2,404 +2,341 @@
 
 .projectCard,
 .contentContainer {
-   will-change: transform, opacity;
-   transform: translateZ(0);
-   backface-visibility: hidden;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .goalsPage {
-   @include shared.page-styles;
-   display: flex;
-   flex-direction: column;
-   gap: 2rem;
-   width: 100%;
+  @include shared.page-styles;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
 
-   // --- Шапка и статистика ---
-   .headerContainer {
+  // --- Шапка и статистика ---
+  .headerContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .headerInfo {
+      .headerTitle {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .headerDesc {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+    }
+
+    .headerStatsContainer {
+      width: 100%;
+
+      .editContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 0.75rem;
+        padding: 0.75rem !important;
+        background: color-mix(in srgb, var(--bg-secondary) 30%, transparent) !important;
+
+        .goalItem {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem 0.5rem;
+          text-align: center;
+          border-radius: var(--radius-sm);
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid var(--bg-content-border);
+          transition: all var(--transition-base);
+
+          .count {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+          }
+
+          .title {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+          }
+
+          &.clickable {
+            cursor: pointer;
+
+            &:hover {
+              border-color: var(--accent);
+              background: color-mix(in srgb, var(--accent) 12%, transparent);
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // --- Список Проектов и Задач ---
+  .tasksContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .projectCard {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
 
-      .headerInfo {
-         .headerTitle {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+      .projectHeaderTitle {
+        border-bottom: 1px solid var(--bg-content-border);
+        padding-bottom: 1rem;
+
+        .projectInfoContainer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+
+          .projectTitle {
+            font-size: 1.3rem;
             color: var(--text-primary);
-         }
+          }
 
-         .headerDesc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-         }
+          .projectGoals {
+            padding: 0.45rem 0.75rem !important;
+            border-radius: 0.8rem !important;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+            color: var(--accent) !important;
+            white-space: nowrap;
+            border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent) !important;
+          }
+        }
+
+        .projectDesc {
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          line-height: 1.5;
+        }
       }
 
-      .headerStatsContainer {
-         width: 100%;
+      .taskList {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 0;
+        margin: 0;
 
-         .editContainer {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 0.75rem;
-            padding: 0.75rem !important;
-            background: color-mix(
-               in srgb,
-               var(--bg-secondary) 30%,
-               transparent
-            ) !important;
+        .contentContainer {
+          padding: 1rem 1.25rem !important;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          background: rgba(255, 255, 255, 0.02) !important;
 
-            .goalItem {
-               position: relative;
-               display: flex;
-               flex-direction: column;
-               align-items: center;
-               justify-content: center;
-               padding: 1rem 0.5rem;
-               text-align: center;
-               border-radius: var(--radius-sm);
-               background: rgba(255, 255, 255, 0.03);
-               border: 1px solid var(--bg-content-border);
-               transition: all var(--transition-base);
+          @media (min-width: 600px) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+          }
 
-               .count {
-                  font-size: 1.6rem;
-                  font-weight: 700;
-                  color: var(--accent);
-                  margin-bottom: 0.25rem;
-               }
+          .taskInfoContainer {
+            flex: 1;
 
-               .title {
-                  font-size: 0.8rem;
-                  color: var(--text-secondary);
-                  font-weight: 600;
-               }
-
-               &.clickable {
-                  cursor: pointer;
-
-                  &:hover {
-                     border-color: var(--accent);
-                     background: color-mix(
-                        in srgb,
-                        var(--accent) 12%,
-                        transparent
-                     );
-                     transform: translateY(-2px);
-                  }
-               }
-            }
-         }
-      }
-   }
-
-   // --- Список Проектов и Задач ---
-   .tasksContainer {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-
-      .projectCard {
-         width: 100%;
-         display: flex;
-         flex-direction: column;
-         gap: 1.25rem;
-
-         .projectHeaderTitle {
-            border-bottom: 1px solid var(--bg-content-border);
-            padding-bottom: 1rem;
-
-            .projectInfoContainer {
-               display: flex;
-               justify-content: space-between;
-               align-items: center;
-               margin-bottom: 0.5rem;
-
-               .projectTitle {
-                  font-size: 1.3rem;
-                  color: var(--text-primary);
-               }
-
-               .projectGoals {
-                  padding: 0.45rem 0.75rem !important;
-                  border-radius: 0.8rem !important;
-                  font-size: 0.8rem;
-                  font-weight: 600;
-                  background: color-mix(
-                     in srgb,
-                     var(--accent) 20%,
-                     transparent
-                  ) !important;
-                  color: var(--accent) !important;
-                  white-space: nowrap;
-                  border: 1px solid
-                     color-mix(in srgb, var(--accent) 40%, transparent) !important;
-               }
+            .taskTitle {
+              font-size: 1rem;
+              margin-bottom: 0.3rem;
+              color: var(--text-primary);
             }
 
-            .projectDesc {
-               color: var(--text-secondary);
-               font-size: 0.9rem;
-               line-height: 1.5;
+            .taskDesc {
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.4;
             }
-         }
+          }
 
-         .taskList {
-            list-style: none;
+          .taskMeta {
             display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            padding: 0;
-            margin: 0;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
 
-            .contentContainer {
-               padding: 1rem 1.25rem !important;
-               display: flex;
-               flex-direction: column;
-               gap: 1rem;
-               background: rgba(255, 255, 255, 0.02) !important;
+            .metaItem {
+              padding: 0.3rem 0.6rem;
+              border-radius: var(--radius-sm);
+              font-size: 0.7rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid var(--bg-content-border);
+              color: var(--text-secondary);
+              white-space: nowrap;
 
-               @media (min-width: 600px) {
-                  flex-direction: row;
-                  justify-content: space-between;
-                  align-items: center;
-               }
+              // Статусы
+              &.statusCompleted {
+                background: color-mix(in srgb, #10b981 15%, transparent);
+                color: #34d399;
+                border-color: color-mix(in srgb, #10b981 30%, transparent);
+              }
 
-               .taskInfoContainer {
-                  flex: 1;
+              &.statusInProcess {
+                background: color-mix(in srgb, #3b82f6 15%, transparent);
+                color: #60a5fa;
+                border-color: color-mix(in srgb, #3b82f6 30%, transparent);
+              }
 
-                  .taskTitle {
-                     font-size: 1rem;
-                     margin-bottom: 0.3rem;
-                     color: var(--text-primary);
-                  }
+              &.statusAwaiting {
+                background: color-mix(in srgb, #f59e0b 15%, transparent);
+                color: #fbbf24;
+                border-color: color-mix(in srgb, #f59e0b 30%, transparent);
+              }
 
-                  .taskDesc {
-                     font-size: 0.85rem;
-                     color: var(--text-secondary);
-                     line-height: 1.4;
-                  }
-               }
+              &.statusFrozen {
+                background: color-mix(in srgb, #44d2ef 15%, transparent);
+                color: #75c3d3;
+                border-color: color-mix(in srgb, #44d2ef 30%, transparent);
+              }
 
-               .taskMeta {
-                  display: flex;
-                  gap: 0.5rem;
-                  align-items: center;
-                  flex-wrap: wrap;
+              &.statusAbandoned {
+                background: color-mix(in srgb, #ef4444 15%, transparent);
+                color: #f87171;
+                border-color: color-mix(in srgb, #ef4444 30%, transparent);
+              }
 
-                  .metaItem {
-                     padding: 0.3rem 0.6rem;
-                     border-radius: var(--radius-sm);
-                     font-size: 0.7rem;
-                     font-weight: 700;
-                     text-transform: uppercase;
-                     letter-spacing: 0.5px;
-                     background: rgba(255, 255, 255, 0.05);
-                     border: 1px solid var(--bg-content-border);
-                     color: var(--text-secondary);
-                     white-space: nowrap;
+              // Приоритеты
+              &.priorityHigh {
+                background: color-mix(in srgb, #ec4879 15%, transparent);
+                color: #f4729f;
+                border-color: color-mix(in srgb, #ec4879 30%, transparent);
+              }
 
-                     // Статусы
-                     &.statusCompleted {
-                        background: color-mix(
-                           in srgb,
-                           #10b981 15%,
-                           transparent
-                        );
-                        color: #34d399;
-                        border-color: color-mix(
-                           in srgb,
-                           #10b981 30%,
-                           transparent
-                        );
-                     }
+              &.priorityMedium {
+                background: color-mix(in srgb, #8b5cf6 15%, transparent);
+                color: #a78bfa;
+                border-color: color-mix(in srgb, #8b5cf6 30%, transparent);
+              }
 
-                     &.statusInProcess {
-                        background: color-mix(
-                           in srgb,
-                           #3b82f6 15%,
-                           transparent
-                        );
-                        color: #60a5fa;
-                        border-color: color-mix(
-                           in srgb,
-                           #3b82f6 30%,
-                           transparent
-                        );
-                     }
-
-                     &.statusAwaiting {
-                        background: color-mix(
-                           in srgb,
-                           #f59e0b 15%,
-                           transparent
-                        );
-                        color: #fbbf24;
-                        border-color: color-mix(
-                           in srgb,
-                           #f59e0b 30%,
-                           transparent
-                        );
-                     }
-
-                     &.statusAbandoned {
-                        background: color-mix(
-                           in srgb,
-                           #ef4444 15%,
-                           transparent
-                        );
-                        color: #f87171;
-                        border-color: color-mix(
-                           in srgb,
-                           #ef4444 30%,
-                           transparent
-                        );
-                     }
-
-                     // Приоритеты
-                     &.priorityHigh {
-                        background: color-mix(
-                           in srgb,
-                           #ec4879 15%,
-                           transparent
-                        );
-                        color: #f4729f;
-                        border-color: color-mix(
-                           in srgb,
-                           #ec4879 30%,
-                           transparent
-                        );
-                     }
-
-                     &.priorityMedium {
-                        background: color-mix(
-                           in srgb,
-                           #8b5cf6 15%,
-                           transparent
-                        );
-                        color: #a78bfa;
-                        border-color: color-mix(
-                           in srgb,
-                           #8b5cf6 30%,
-                           transparent
-                        );
-                     }
-
-                     &.priorityLow {
-                        background: color-mix(
-                           in srgb,
-                           #6b7280 15%,
-                           transparent
-                        );
-                        color: #9ca3af;
-                        border-color: color-mix(
-                           in srgb,
-                           #6b7280 30%,
-                           transparent
-                        );
-                     }
-                  }
-               }
+              &.priorityLow {
+                background: color-mix(in srgb, #6b7280 15%, transparent);
+                color: #9ca3af;
+                border-color: color-mix(in srgb, #6b7280 30%, transparent);
+              }
             }
-         }
-
-         .emptyContentFallback {
-            text-align: center;
-            padding: 1.5rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: var(--radius-md);
-         }
+          }
+        }
       }
-   }
+
+      .emptyContentFallback {
+        text-align: center;
+        padding: 1.5rem;
+        color: var(--text-secondary);
+        font-style: italic;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: var(--radius-md);
+      }
+    }
+  }
 }
 
 // --- Модальное окно (Вынесено отдельно, так как рендерится в Portal/Overlay) ---
 .modalOverlay {
-   position: fixed;
-   inset: 0;
-   z-index: var(--z-modal);
-   background: rgba(0, 0, 0, 0.6);
-   backdrop-filter: blur(var(--blur-glass));
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(var(--blur-glass));
 
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 
-   .modalContent {
-      width: 100%;
-      max-width: 480px;
-      max-height: 85vh;
+  .modalContent {
+    width: 100%;
+    max-width: 480px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary) !important;
+    overflow-y: auto;
+
+    .modalHeader {
+      position: sticky;
+      top: 0;
       display: flex;
-      flex-direction: column;
-      background: var(--bg-primary) !important;
-      overflow-y: auto;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-primary);
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--bg-content-border);
+      padding-bottom: 0.75rem;
+      z-index: 1;
 
-      .modalHeader {
-         position: sticky;
-         top: 0;
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         background: var(--bg-primary);
-         margin-bottom: 1rem;
-         border-bottom: 1px solid var(--bg-content-border);
-         padding-bottom: 0.75rem;
-         z-index: 1;
-
-         h3 {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-         }
-
-         .closeBtn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.4rem;
-            cursor: pointer;
-            line-height: 1;
-
-            &:hover {
-               color: var(--accent);
-            }
-         }
+      h3 {
+        font-size: 1.1rem;
+        color: var(--text-primary);
       }
 
-      .modalBody {
-         color: var(--text-secondary);
-         font-size: 0.9rem;
-         line-height: 1.5;
+      .closeBtn {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.4rem;
+        cursor: pointer;
+        line-height: 1;
 
-         p {
-            margin-bottom: 0.75rem;
-         }
-
-         strong {
-            color: var(--text-primary);
-         }
-
-         ul {
-            padding-left: 1.25rem;
-            margin-bottom: 1rem;
-
-            li {
-               margin-bottom: 0.4rem;
-
-               &::marker {
-                  color: var(--accent);
-               }
-            }
-         }
-
-         .modalNote {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            text-align: center;
-            margin-bottom: 0 !important;
-         }
+        &:hover {
+          color: var(--accent);
+        }
       }
-   }
+    }
+
+    .modalBody {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+
+      p {
+        margin-bottom: 0.75rem;
+      }
+
+      strong {
+        color: var(--text-primary);
+      }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 1rem;
+
+        li {
+          margin-bottom: 0.4rem;
+
+          &::marker {
+            color: var(--accent);
+          }
+        }
+      }
+
+      .modalNote {
+        font-size: 0.8rem;
+        opacity: 0.7;
+        text-align: center;
+        margin-bottom: 0 !important;
+      }
+    }
+  }
 }
