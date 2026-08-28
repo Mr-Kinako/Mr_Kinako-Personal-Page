@@ -102,13 +102,6 @@ export const GoalsData: Record<string, ProjectData> = {
     title: "Mr_Kinako Personal-Page",
     description: "Собственно, моя собственная страница, захосченная на Vercel.",
     content: {
-      1: {
-        title: "Доработать смену тем",
-        description: "Исправить проблемы и добавить нормальную работу с консолью.",
-        priority: constantPriorities.low,
-        status: constantStatuses.awaiting,
-      },
-
       10: {
         title: "Пересмотреть вариант с плашками",
         description:
@@ -123,6 +116,13 @@ export const GoalsData: Record<string, ProjectData> = {
           "Добавить две категории: Выполненные/Невыполненные. Также можно добавить фильтр по приоритетам, добавив по умолчанию условно средний приоритет.",
         priority: constantPriorities.low,
         status: constantStatuses.abandoned,
+      },
+
+      98: {
+        title: "Доработать смену тем",
+        description: "Исправить проблемы и добавить нормальную работу с консолью.",
+        priority: constantPriorities.low,
+        status: constantStatuses.completed,
       },
 
       99: {
