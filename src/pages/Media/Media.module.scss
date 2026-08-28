@@ -1,120 +1,120 @@
 @use "@/styles/_shared.scss";
 
 .mediaContainer {
-   @include shared.page-styles;
-   width: 100%;
+  @include shared.page-styles;
+  width: 100%;
 
-   .pageTitle {
-      font-size: var(--font-xxl);
-      margin-bottom: 2rem;
-      align-self: flex-start;
-      color: var(--text-primary);
-   }
+  .pageTitle {
+    font-size: var(--font-xxl);
+    margin-bottom: 2rem;
+    align-self: flex-start;
+    color: var(--text-primary);
+  }
 
-   .contentWindow {
+  .contentWindow {
+    width: 100%;
+
+    .masonryGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
       width: 100%;
 
-      .masonryGrid {
-         display: grid;
-         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-         gap: 1rem;
-         width: 100%;
+      .card {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid var(--bg-content-border);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
-         .card {
-            position: relative;
-            aspect-ratio: 1 / 1;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            cursor: pointer;
-            border: 1px solid var(--bg-content-border);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0);
+          transition: background var(--transition-base);
+        }
 
-            &::after {
-               content: "";
-               position: absolute;
-               inset: 0;
-               background: rgba(0, 0, 0, 0);
-               transition: background var(--transition-base);
-            }
+        &:hover {
+          &::after {
+            background: rgba(255, 255, 255, 0.1);
+          }
+          img {
+            transform: scale(1.08);
+          }
+        }
 
-            &:hover {
-               &::after {
-                  background: rgba(255, 255, 255, 0.1);
-               }
-               img {
-                  transform: scale(1.08);
-               }
-            }
-
-            img {
-               width: 100%;
-               height: 100%;
-               object-fit: cover;
-               transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-         }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
       }
-   }
+    }
+  }
 }
 
 // Специфичные стили для картинки внутри Overlay
 .overlayImage {
-   max-width: 100%;
-   max-height: 80vh;
-   border-radius: var(--radius-sm);
-   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-   object-fit: contain;
-   cursor: pointer;
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  object-fit: contain;
+  cursor: pointer;
 }
 
 // Анимации оверлея
 .fadeIn {
-   animation: overlayFadeIn 0.3s ease forwards;
-   .overlayContent img {
-      animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-   }
+  animation: overlayFadeIn 0.3s ease forwards;
+  .overlayContent img {
+    animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
 }
 
 .fadeOut {
-   animation: overlayFadeOut 0.3s ease forwards;
-   .overlayContent img {
-      animation: zoomOut 0.3s ease forwards;
-   }
+  animation: overlayFadeOut 0.3s ease forwards;
+  .overlayContent img {
+    animation: zoomOut 0.3s ease forwards;
+  }
 }
 
 @keyframes overlayFadeIn {
-   from {
-      opacity: 0;
-   }
-   to {
-      opacity: 1;
-   }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes overlayFadeOut {
-   from {
-      opacity: 1;
-   }
-   to {
-      opacity: 0;
-   }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 @keyframes zoomIn {
-   from {
-      transform: scale(0.9);
-      opacity: 0;
-   }
-   to {
-      transform: scale(1);
-      opacity: 1;
-   }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 @keyframes zoomOut {
-   from {
-      transform: scale(1);
-      opacity: 1;
-   }
-   to {
-      transform: scale(0.9);
-      opacity: 0;
-   }
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
 }

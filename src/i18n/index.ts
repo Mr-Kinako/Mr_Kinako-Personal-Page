@@ -3,8 +3,8 @@ import { en } from "./translations/en";
 import type { Locale, TranslationSchema } from "./types";
 
 export const translations: Record<Locale, TranslationSchema> = {
-   ru,
-   en,
+  ru,
+  en,
 };
 
 export { type Locale, type TranslationSchema };

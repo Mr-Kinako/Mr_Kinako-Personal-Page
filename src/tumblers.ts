@@ -1,5 +1,5 @@
 export interface Tumblers {
-    isDev?: boolean;
+  isDev?: boolean;
 }
 
 export const isDev = false;

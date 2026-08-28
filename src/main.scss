@@ -1,26 +1,26 @@
 @use "@/styles/_theme.scss";
 
 * {
-   box-sizing: border-box;
-   padding: 0;
-   margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html {
-   background: var(--bg-primary);
+  background: var(--bg-primary);
 }
 
 body {
-   width: 100vw;
-   height: 100dvh;
-   background-color: var(--bg-primary);
-   color: var(--text-primary);
-   font-family: "JetBrains Mono", monospace;
-   font-size: var(--font-md);
-   font-weight: 500;
-   transition:
-      background-color 0.4s ease,
-      color 0.4s ease;
-   overflow: hidden;
-   cursor: none;
+  width: 100vw;
+  height: 100dvh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--font-md);
+  font-weight: 500;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+  overflow: hidden;
+  cursor: none;
 }

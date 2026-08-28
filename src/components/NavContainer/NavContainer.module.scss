@@ -1,50 +1,50 @@
 @use "@/styles/_mixins.scss" as mix;
 
 .navigationContainer {
-   width: max-content;
-   position: fixed;
-   top: 1rem;
-   left: 50%;
-   transform: translateX(-50%);
-   z-index: var(--z-nav);
+  width: max-content;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-nav);
 }
 
 .navBubble {
-   @include mix.glass-panel;
-   display: flex;
-   align-items: center;
-   gap: 0.6rem;
-   padding: 0.4rem 0.5rem;
-   border-radius: 1rem;
-   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  @include mix.glass-panel;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 
-   .link {
-      text-decoration: none;
-      color: var(--text-secondary);
-      padding: 0.5rem 0.8rem;
-      border-radius: 0.6rem;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-size: var(--font-sm);
+  .link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: var(--font-sm);
 
-      &:hover {
-         color: var(--text-primary);
-         background: rgba(255, 255, 255, 0.05);
-      }
+    &:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
 
-      &.active {
-         color: #fff;
-         background: var(--accent);
-         // Если есть градиент, используем его:
-         background: var(--accent-gradient, var(--accent));
-         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-   }
+    &.active {
+      color: #fff;
+      background: var(--accent);
+      // Если есть градиент, используем его:
+      background: var(--accent-gradient, var(--accent));
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
 
-   .separator {
-      width: 4px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: var(--bg-content-border);
-   }
+  .separator {
+    width: 4px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--bg-content-border);
+  }
 }

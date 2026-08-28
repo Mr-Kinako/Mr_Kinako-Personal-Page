@@ -1,39 +1,39 @@
 $max-width-page: 768px;
 
 :root {
-   --max-width-page: #{$max-width-page};
+  --max-width-page: #{$max-width-page};
 
-   // Радиусы скругления
-   --radius-sm: 8px;
-   --radius-md: 16px;
-   --radius-lg: 24px;
+  // Радиусы скругления
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
 
-   --font-xs: 0.75rem;
-   --font-sm: 0.875rem;
-   --font-md: 1rem;
-   --font-lg: 1.25rem;
-   --font-xl: 1.75rem;
-   --font-xxl: 2rem;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.25rem;
+  --font-xl: 1.75rem;
+  --font-xxl: 2rem;
 
-   --blur-glass: 8px;
+  --blur-glass: 8px;
 
-   // Анимации
-   --transition-base: 0.3s ease;
-   --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  // Анимации
+  --transition-base: 0.3s ease;
+  --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-   // Слои (z-index)
-   --z-nav: 100;
-   --z-overlay: 900;
-   --z-modal: 1000;
+  // Слои (z-index)
+  --z-nav: 100;
+  --z-overlay: 900;
+  --z-modal: 1000;
 
-   // Статусы задач
-   --status-completed: #10b981;
-   --status-in-process: #3b82f6;
-   --status-awaiting: #f59e0b;
-   --status-abandoned: #ef4444;
+  // Статусы задач
+  --status-completed: #10b981;
+  --status-in-process: #3b82f6;
+  --status-awaiting: #f59e0b;
+  --status-abandoned: #ef4444;
 
-   // Приоритеты
-   --priority-high: #ec4879;
-   --priority-medium: #8b5cf6;
-   --priority-low: #6b7280;
+  // Приоритеты
+  --priority-high: #ec4879;
+  --priority-medium: #8b5cf6;
+  --priority-low: #6b7280;
 }

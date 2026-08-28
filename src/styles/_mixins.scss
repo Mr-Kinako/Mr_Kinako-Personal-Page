@@ -1,6 +1,6 @@
 // _shared.scss
 @mixin glass-panel($bg: var(--nav-bg), $border: var(--bg-content-border)) {
-   background: $bg;
-   backdrop-filter: blur(var(--blur-glass));
-   border: 1px solid $border;
+  background: $bg;
+  backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid $border;
 }

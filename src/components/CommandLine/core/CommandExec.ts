@@ -1,5 +1,5 @@
-import { ParsedCommand, ExecutionResult } from './types';
-import { COMMANDS_REGISTRY } from './commands';
+import { ParsedCommand, ExecutionResult } from "./types";
+import { COMMANDS_REGISTRY } from "./commands";
 
 /**
  * Главный диспетчер выполнения команд.
@@ -7,7 +7,7 @@ import { COMMANDS_REGISTRY } from './commands';
  */
 export async function executeCommand(
   parsed: ParsedCommand,
-  t: (key: string, vars?: Record<string, string | number>) => string
+  t: (key: string, vars?: Record<string, string | number>) => string,
 ): Promise<ExecutionResult> {
   const startTime = performance.now();
   console.log(`[kinako.sh:exec] Старт выполнения команды: "${parsed.name}"`, {
@@ -31,17 +31,15 @@ export async function executeCommand(
 
     console.log(`[kinako.sh:exec] Команда "${parsed.name}" успешно завершена.`, result);
     return result;
-
   } catch (criticalError) {
     // Верхнеуровневый перехват: если в самом коде команды произошла необработанная ошибка
     console.error(
       `[kinako.sh:exec] КРИТИЧЕСКИЙ СБОЙ при исполнении "${parsed.name}":`,
-      criticalError
+      criticalError,
     );
 
-    const errInstance = criticalError instanceof Error
-      ? criticalError
-      : new Error(String(criticalError));
+    const errInstance =
+      criticalError instanceof Error ? criticalError : new Error(String(criticalError));
 
     return {
       success: false,

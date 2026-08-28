@@ -3,11 +3,13 @@ import { createPortal } from "react-dom";
 import { CardContainer } from "@/components/UI-Kit/CardContainer";
 import { Footer } from "@/components/Footer";
 import { GoalsData } from "./GoalsDataOriginal";
-import { getGoalsStatsList, PRIORITY_CLASSES, STATUS_CLASSES } from "./GoalsUtils";
+import { calculateAbandonedProjectsCount, calculateRawStats } from "./GoalsStats";
+import { PRIORITY_CLASSES, STATUS_CLASSES } from "./GoalsClasses";
 import { Button } from "@/components/UI-Kit";
 import { goalStatCategory } from "./GoalsTypes";
 import { useTranslation } from "@/i18n";
 import { useProjectTranslation } from "@/i18n/useProjectTranslation";
+import { usePriority } from "@/services/priority";
 import styles from "./Goals.module.scss";
 
 interface GoalsProps {
@@ -16,11 +18,66 @@ interface GoalsProps {
 
 const BATCH_SIZE = 1;
 
+function getGoalsStatsList(
+  t: (key: string) => string,
+  livePriority: number | null,
+): goalStatCategory {
+  const stats = calculateRawStats();
+  const abandonedProjectsCount = calculateAbandonedProjectsCount(stats.allProjectsCount);
+
+  return {
+    "all-projects": {
+      id: "all-projects",
+      title: t("goals.stats.all-projects"),
+      count: stats.allProjectsCount,
+    },
+    "abandoned-projects": {
+      id: "abandoned-projects",
+      title: t("goals.stats.abandoned-projects"),
+      count: abandonedProjectsCount,
+    },
+    "work-priority": {
+      id: "work-priority",
+      title: t("goals.stats.work-priority"),
+      count: livePriority ?? 0,
+    },
+    "all-goals": {
+      id: "all-goals",
+      title: t("goals.stats.all-goals"),
+      count: stats.totalActiveGoals,
+    },
+    "in-process-goals": {
+      id: "in-process-goals",
+      title: t("goals.stats.in-process-goals"),
+      count: stats.inProcessGoals,
+    },
+    "awaiting-goals": {
+      id: "awaiting-goals",
+      title: t("goals.stats.awaiting-goals"),
+      count: stats.awaitingGoals,
+    },
+    "completed-goals": {
+      id: "completed-goals",
+      title: t("goals.stats.completed-goals"),
+      count: stats.completedGoals,
+    },
+    "abandoned-goals": {
+      id: "abandoned-goals",
+      title: t("goals.stats.abandoned-goals"),
+      count: stats.abandonedGoals,
+    },
+  };
+}
+
 export const Goals = ({ stats }: GoalsProps) => {
   const { t } = useTranslation();
   const { getProject, getTask } = useProjectTranslation();
+  const {
+    priority,
+    // loading: priorityLoading
+  } = usePriority();
 
-  const currentStats = stats || getGoalsStatsList(t);
+  const currentStats = stats || getGoalsStatsList(t, priority);
 
   const [isPriorityModalOpen, setIsPriorityModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,19 +87,12 @@ export const Goals = ({ stats }: GoalsProps) => {
   const visibleProjects = allProjects.slice(0, visibleCount);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
+    const timer = setTimeout(() => setIsLoading(false), 100);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (isPriorityModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
+    document.body.style.overflow = isPriorityModalOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -67,7 +117,6 @@ export const Goals = ({ stats }: GoalsProps) => {
                     ✕
                   </button>
                 </div>
-
                 <div className={styles.modalBody}>
                   <p>{t("goals.priorityModal.range")}</p>
                   <ul>
@@ -92,7 +141,6 @@ export const Goals = ({ stats }: GoalsProps) => {
             <CardContainer customClass={styles.editContainer}>
               {Object.values(currentStats).map((item) => {
                 const isPriorityCard = item.id === "work-priority";
-
                 return (
                   <div
                     key={item.id}
@@ -113,7 +161,7 @@ export const Goals = ({ stats }: GoalsProps) => {
         ) : (
           <div className={styles.tasksContainer}>
             {visibleProjects.map(([projectKey, project]) => {
-              const projectTranslation = getProject(projectKey);
+              const projectTrans = getProject(projectKey);
               const tasks = Object.entries(project.content || {});
               const goalsCount = tasks.length;
 
@@ -122,7 +170,7 @@ export const Goals = ({ stats }: GoalsProps) => {
                   <div className={styles.projectHeaderTitle}>
                     <div className={styles.projectInfoContainer}>
                       <h3 className={styles.projectTitle}>
-                        {projectTranslation?.title || project.title}
+                        {projectTrans?.title || project.title}
                       </h3>
                       <div className={styles.projectGoals}>
                         <span>
@@ -132,7 +180,7 @@ export const Goals = ({ stats }: GoalsProps) => {
                     </div>
                     {project.description && (
                       <p className={styles.projectDesc}>
-                        {projectTranslation?.description || project.description}
+                        {projectTrans?.description || project.description}
                       </p>
                     )}
                   </div>
@@ -140,19 +188,15 @@ export const Goals = ({ stats }: GoalsProps) => {
                   {tasks.length > 0 ? (
                     <ul className={styles.taskList}>
                       {tasks.map(([taskKey, task]) => {
-                        const taskTranslation = getTask(projectKey, taskKey);
-
+                        const taskTrans = getTask(projectKey, taskKey);
                         return task.title || task.description ? (
                           <CardContainer key={taskKey} customClass={styles.contentContainer}>
                             <div className={styles.taskInfoContainer}>
-                              <h4 className={styles.taskTitle}>
-                                {taskTranslation?.title || task.title}
-                              </h4>
+                              <h4 className={styles.taskTitle}>{taskTrans?.title || task.title}</h4>
                               <p className={styles.taskDesc}>
-                                {taskTranslation?.description || task.description}
+                                {taskTrans?.description || task.description}
                               </p>
                             </div>
-
                             <div className={styles.taskMeta}>
                               {STATUS_CLASSES[task.status] && (
                                 <span
@@ -161,7 +205,6 @@ export const Goals = ({ stats }: GoalsProps) => {
                                   {t(`goals.status.${task.status}`)}
                                 </span>
                               )}
-
                               {PRIORITY_CLASSES[task.priority] && (
                                 <span
                                   className={`${styles.metaItem} ${PRIORITY_CLASSES[task.priority] || ""}`}
@@ -195,7 +238,6 @@ export const Goals = ({ stats }: GoalsProps) => {
           </div>
         )}
       </div>
-
       <Footer />
     </>
   );

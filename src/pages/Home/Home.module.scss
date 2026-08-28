@@ -1,80 +1,80 @@
 @use "@/styles/_shared.scss";
 
 .home {
-   @include shared.page-styles;
+  @include shared.page-styles;
 }
 
 .heroSection {
-   text-align: center;
-   margin-bottom: 3rem;
-   animation: fadeInDown 0.8s ease backwards;
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInDown 0.8s ease backwards;
 }
 
 .title {
-   font-size: 3.5rem;
-   font-weight: 800;
-   margin-bottom: 0.5rem;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
 
-   background: var(--accent-gradient, var(--text-primary));
-   background-clip: text;
-   -webkit-text-fill-color: transparent;
-   letter-spacing: -1px;
+  background: var(--accent-gradient, var(--text-primary));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
 }
 
 .subtitle {
-   font-size: var(--font-md);
-   color: var(--text-secondary);
-   max-width: 80%;
-   margin: 0 auto;
-   line-height: 1.5;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  max-width: 80%;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 .openAboutMe {
-   margin-bottom: 2rem;
-   animation: fadeIn 1s ease 0.3s backwards;
+  margin-bottom: 2rem;
+  animation: fadeIn 1s ease 0.3s backwards;
 
-   button {
-      background: transparent;
-      border: 2px solid var(--accent);
-      color: var(--text-primary);
-      padding: 0.8rem 2rem;
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: var(--font-md);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
+  button {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--text-primary);
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: var(--font-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
-      &:hover:not(:disabled) {
-         background: var(--accent);
-         color: #fff;
-         box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
-         transform: translateY(-2px);
-      }
+    &:hover:not(:disabled) {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
+      transform: translateY(-2px);
+    }
 
-      &:disabled {
-         opacity: 0.7;
-         cursor: not-allowed;
-      }
-   }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
 }
 
 @keyframes fadeInDown {
-   from {
-      opacity: 0;
-      transform: translateY(-20px);
-   }
-   to {
-      opacity: 1;
-      transform: translateY(0);
-   }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-   from {
-      opacity: 0;
-   }
-   to {
-      opacity: 1;
-   }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

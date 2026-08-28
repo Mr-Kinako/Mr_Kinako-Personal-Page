@@ -4,21 +4,21 @@ import { projectsEn } from "./translations/projects/en";
 import type { ProjectTranslations } from "./types";
 
 const projectTranslations = {
-   ru: projectsRu,
-   en: projectsEn,
+  ru: projectsRu,
+  en: projectsEn,
 };
 
 export function useProjectTranslation() {
-   const { locale } = useI18n();
+  const { locale } = useI18n();
 
-   function getProject(projectKey: string): ProjectTranslations | undefined {
-      return projectTranslations[locale][projectKey];
-   }
+  function getProject(projectKey: string): ProjectTranslations | undefined {
+    return projectTranslations[locale][projectKey];
+  }
 
-   function getTask(projectKey: string, taskKey: string) {
-      const project = getProject(projectKey);
-      return project?.tasks[taskKey];
-   }
+  function getTask(projectKey: string, taskKey: string) {
+    const project = getProject(projectKey);
+    return project?.tasks[taskKey];
+  }
 
-   return { getProject, getTask, locale };
+  return { getProject, getTask, locale };
 }

@@ -1,1 +1,1 @@
-export { Media } from './Media';
+export { Media } from "./Media";

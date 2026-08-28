@@ -1,0 +1,15 @@
+# Documentation
+**/*.md
+
+# Dependencies / generated files
+node_modules
+dist
+coverage
+package-lock.json
+
+# Environment / local files
+.env
+.env.*
+
+# VCS
+.git

@@ -1,4 +1,4 @@
-import { ParsedCommand } from './types';
+import { ParsedCommand } from "./types";
 
 /**
  * Безопасно парсит введенную пользователем строку.
@@ -6,13 +6,13 @@ import { ParsedCommand } from './types';
  * @returns ParsedCommand или null, если строка пустая/невалидная
  */
 export function parseCommand(input: string): ParsedCommand | null {
-  console.log('[kinako.sh:parser] Начало разбора ввода:', JSON.stringify(input));
+  console.log("[kinako.sh:parser] Начало разбора ввода:", JSON.stringify(input));
 
   try {
     const trimmed = input.trim();
 
     if (!trimmed) {
-      console.log('[kinako.sh:parser] Введена пустая строка, пропуск.');
+      console.log("[kinako.sh:parser] Введена пустая строка, пропуск.");
       return null;
     }
 
@@ -27,10 +27,10 @@ export function parseCommand(input: string): ParsedCommand | null {
       raw: input,
     };
 
-    console.log('[kinako.sh:parser] Успешно распаршено:', result);
+    console.log("[kinako.sh:parser] Успешно распаршено:", result);
     return result;
   } catch (error) {
-    console.error('[kinako.sh:parser] Критическая ошибка при парсинге ввода:', error);
+    console.error("[kinako.sh:parser] Критическая ошибка при парсинге ввода:", error);
     return null;
   }
 }

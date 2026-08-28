@@ -16,8 +16,8 @@ export interface TranslationSchema {
     spoiler: string;
   };
   media: {
-  title: string;
-  }
+    title: string;
+  };
   goals: {
     title: string;
     description: string;

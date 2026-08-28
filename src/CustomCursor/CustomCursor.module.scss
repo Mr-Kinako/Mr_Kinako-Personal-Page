@@ -1,5 +1,5 @@
 :global(body) {
-   cursor: none !important;
+  cursor: none !important;
 }
 
 // Принудительно скрываем системный курсор для кликабельных элементов и инпутов
@@ -8,49 +8,49 @@
 :global(input),
 :global(textarea),
 :global(label) {
-   cursor: none !important;
+  cursor: none !important;
 }
 
 .cursor {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: var(--frame-size, 32px);
-   height: var(--frame-size, 32px);
-   pointer-events: none;
-   z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--frame-size, 32px);
+  height: var(--frame-size, 32px);
+  pointer-events: none;
+  z-index: 99999;
 
-   background-repeat: no-repeat;
-   background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
 
-   animation: playSprite 2.4s steps(var(--frames, 24)) infinite;
-   will-change: transform;
+  animation: playSprite 2.4s steps(var(--frames, 24)) infinite;
+  will-change: transform;
 
-   // Подключение спрайтов под разные типы
-   &.default {
-      background-image: url("/cursors/default-sprite.png");
-   }
+  // Подключение спрайтов под разные типы
+  &.default {
+    background-image: url("/cursors/default-sprite.png");
+  }
 
-   &.pointer {
-      background-image: url("/cursors/pointer-sprite.png");
-      margin: 0 0 0 -4px;
-   }
+  &.pointer {
+    background-image: url("/cursors/pointer-sprite.png");
+    margin: 0 0 0 -4px;
+  }
 
-   &.beam {
-      background-image: url("/cursors/beam-sprite.png");
-      margin: -4px 0 0 -6px;
-   }
+  &.beam {
+    background-image: url("/cursors/beam-sprite.png");
+    margin: -4px 0 0 -6px;
+  }
 
-   &.unavailable {
-      background-image: url("/cursors/unavailable-sprite.png");
-   }
+  &.unavailable {
+    background-image: url("/cursors/unavailable-sprite.png");
+  }
 }
 
 @keyframes playSprite {
-   from {
-      background-position: 0 0;
-   }
-   to {
-      background-position: var(--full-width, -768px) 0;
-   }
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: var(--full-width, -768px) 0;
+  }
 }
