@@ -1,6 +1,6 @@
 import { ExecutionResult } from "../core/types";
 
-const CLI_VERSION = "v0.1.0-alpha";
+const CLI_VERSION = "v0.2.0-alpha";
 const CLI_DESCRIPTION = "kinako.sh — модульный эмулятор веб-терминала с подсистемой VFS.";
 
 export function executeInfo(): ExecutionResult {

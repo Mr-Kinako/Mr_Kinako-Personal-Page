@@ -1,43 +1,39 @@
 import { ParsedCommand, ExecutionResult } from "./types";
 import { COMMANDS_REGISTRY } from "./commands";
 
-/**
- * Главный диспетчер выполнения команд.
- * Гарантирует отказоустойчивость: перехватывает любые runtime-ошибки внутри команд.
- */
 export async function executeCommand(
   parsed: ParsedCommand,
   t: (key: string, vars?: Record<string, string | number>) => string,
 ): Promise<ExecutionResult> {
   const startTime = performance.now();
-  console.log(`[kinako.sh:exec] Старт выполнения команды: "${parsed.name}"`, {
-    args: parsed.args,
-    raw: parsed.raw,
-  });
+  console.log(`[kinako.sh:exec] Старт: "${parsed.name}"`, { args: parsed.args, raw: parsed.raw });
 
   try {
+    // ← Универсальный -h / --help для ЛЮБОЙ команды
+    if (parsed.args.includes("-h") || parsed.args.includes("--help")) {
+      const helpData = Object.values(COMMANDS_REGISTRY).map((cmd) => ({
+        name: cmd.name,
+        description: cmd.description,
+        help: cmd.help,
+      }));
+      return executeHelp(helpData, parsed.name);
+    }
+
     const commandDef = COMMANDS_REGISTRY[parsed.name];
 
     if (!commandDef) {
-      console.warn(`[kinako.sh:exec] Команда "${parsed.name}" не найдена в реестре.`);
+      console.warn(`[kinako.sh:exec] Команда "${parsed.name}" не найдена.`);
       return {
         success: false,
         output: t("commandLine.unknown", { command: parsed.name }),
       };
     }
 
-    // Выполняем логику команды (поддерживает как синхронный, так и async вызов)
     const result = await Promise.resolve(commandDef.execute(parsed.args));
-
-    console.log(`[kinako.sh:exec] Команда "${parsed.name}" успешно завершена.`, result);
+    console.log(`[kinako.sh:exec] Успех: "${parsed.name}"`, result);
     return result;
   } catch (criticalError) {
-    // Верхнеуровневый перехват: если в самом коде команды произошла необработанная ошибка
-    console.error(
-      `[kinako.sh:exec] КРИТИЧЕСКИЙ СБОЙ при исполнении "${parsed.name}":`,
-      criticalError,
-    );
-
+    console.error(`[kinako.sh:exec] СБОЙ "${parsed.name}":`, criticalError);
     const errInstance =
       criticalError instanceof Error ? criticalError : new Error(String(criticalError));
 
@@ -48,6 +44,9 @@ export async function executeCommand(
     };
   } finally {
     const duration = (performance.now() - startTime).toFixed(2);
-    console.log(`[kinako.sh:exec] Завершение цикла обработки "${parsed.name}" (${duration}ms)`);
+    console.log(`[kinako.sh:exec] Завершение "${parsed.name}" (${duration}ms)`);
   }
 }
+
+// Локальный импорт executeHelp чтобы избежать цикла
+import { executeHelp } from "../commands/help";

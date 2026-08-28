@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { I18nProvider } from "./i18n/I18nProvider.tsx";
 import { PriorityService } from "./services/priority/PriorityService.ts";
+import { ThemeService } from "./services/theme/ThemeService.ts";
 import { calculateRawStats } from "./pages/Goals/GoalsStats.ts";
 
 import "@/styles/_variables.scss";
@@ -10,6 +11,7 @@ import "./main.scss";
 import App from "./App.tsx";
 
 PriorityService.setStatsProvider(calculateRawStats);
+ThemeService.init();
 
 if (typeof window !== "undefined") {
   (window as any).forceUpdatePriority = async () => {

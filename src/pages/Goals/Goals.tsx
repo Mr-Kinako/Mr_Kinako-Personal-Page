@@ -123,6 +123,11 @@ export const Goals = ({ stats }: GoalsProps) => {
                     <li>{t("goals.priorityModal.backlogScore")}</li>
                     <li>{t("goals.priorityModal.criticalAnomalies")}</li>
                     <li>{t("goals.priorityModal.abstractionParams")}</li>
+                    <li>{t("goals.priorityModal.storage")}</li>
+                    <li>{t("goals.priorityModal.autoUpdate")}</li>
+                    <li>{t("goals.priorityModal.decay")}</li>
+                    <li>{t("goals.priorityModal.versioning")}</li>
+                    <li>{t("goals.priorityModal.i18n")}</li>
                   </ul>
                   <p className={styles.modalNote}>{t("goals.priorityModal.updateNote")}</p>
                 </div>

@@ -1,24 +1,38 @@
 import { ExecutionResult } from "../core/types";
+import { ThemeService } from "@/services/theme";
 
 export function executeTheme(args: string[]): ExecutionResult {
-  console.log("[kinako.sh:cmd:theme] Выполнение команды -theme с аргументами:", args);
+  const available = ThemeService.getAll();
+  const current = ThemeService.getCurrent();
+  const currentLabel = ThemeService.getLabel(current);
 
-  try {
-    const message = `[STUB] Модуль смены тем находится в разработке.\nПереданные аргументы: ${
-      args.length > 0 ? args.join(", ") : "отсутствуют"
-    }`;
-
-    console.log("[kinako.sh:cmd:theme] Заглушка команды -theme отработала штатно");
+  if (args.length === 0) {
     return {
       success: true,
-      output: message,
-    };
-  } catch (error) {
-    console.error("[kinako.sh:cmd:theme] Критическая ошибка внутри модуля theme:", error);
-    return {
-      success: false,
-      output: "Ошибка: сбой при выполнении команды -theme.",
-      error: error instanceof Error ? error : new Error(String(error)),
+      output: [
+        `Текущая тема: ${currentLabel} [${current}]`,
+        `Доступные: ${available.join(", ")}`,
+        `Использование: -theme <название>`,
+      ].join("\n"),
     };
   }
+
+  const arg = args[0].toLowerCase();
+
+  if (arg === "list") {
+    const list = available
+      .map((t) => `  ${t === current ? "▸" : " "} ${ThemeService.getLabel(t)} [${t}]`)
+      .join("\n");
+    return { success: true, output: `Темы:\n${list}` };
+  }
+
+  if (!ThemeService.isValid(arg)) {
+    return {
+      success: false,
+      output: `Неизвестная тема: "${arg}"\nДоступные: ${available.join(", ")}`,
+    };
+  }
+
+  ThemeService.set(arg);
+  return { success: true, output: `Тема изменена на: ${arg}` };
 }

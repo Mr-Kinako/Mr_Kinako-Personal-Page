@@ -32,6 +32,11 @@ export interface TranslationSchema {
       backlogScore: string;
       criticalAnomalies: string;
       abstractionParams: string;
+      storage: string;
+      autoUpdate: string;
+      decay: string;
+      versioning: string;
+      i18n: string;
       updateNote: string;
     };
     stats: {

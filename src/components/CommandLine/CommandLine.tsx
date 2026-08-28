@@ -18,7 +18,6 @@ export const CommandLine: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
-  // Автоскролл вниз при добавлении новых записей
   useEffect(() => {
     if (!windowState.isMinimized && windowState.isOpen) {
       terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -26,12 +25,10 @@ export const CommandLine: React.FC = () => {
   }, [history, windowState.isMinimized, windowState.isOpen]);
 
   const handleClose = () => {
-    // console.log("[kinako.sh:ui] Закрытие консоли.");
     setWindowState((prev) => ({ ...prev, isOpen: false }));
   };
 
   const handleToggleMinimize = () => {
-    // console.log("[kinako.sh:ui] Переключение сворачивания консоли.");
     setWindowState((prev) => ({ ...prev, isMinimized: !prev.isMinimized }));
   };
 
@@ -41,18 +38,12 @@ export const CommandLine: React.FC = () => {
     if (!rawInput.trim()) return;
 
     setInputVal("");
-    console.log("[kinako.sh:ui] Ввод пользователя:", rawInput);
 
     try {
       const parsed = parseCommand(rawInput);
+      if (!parsed) return;
 
-      if (!parsed) {
-        return;
-      }
-
-      // Специальная обработка команды -clear на уровне React-состояния
       if (parsed.name === "-clear") {
-        console.log("[kinako.sh:ui] Выполнение очистки буфера истории");
         setHistory([]);
         return;
       }
@@ -69,17 +60,14 @@ export const CommandLine: React.FC = () => {
 
       setHistory((prev) => [...prev, newItem]);
     } catch (uiError) {
-      console.error("[kinako.sh:ui] Ошибка верхнего уровня при обработке ввода:", uiError);
+      console.error("[kinako.sh:ui] Ошибка обработки ввода:", uiError);
     }
   };
 
-  if (!windowState.isOpen) {
-    return null;
-  }
+  if (!windowState.isOpen) return null;
 
   return (
     <div className={styles.terminalContainer}>
-      {/* Шапка окна */}
       <div className={styles.header}>
         <div className={styles.title}>kinako.sh</div>
         <div className={styles.controls}>
@@ -87,7 +75,7 @@ export const CommandLine: React.FC = () => {
             type="button"
             className={styles.controlBtn}
             onClick={handleToggleMinimize}
-            title={windowState.isMinimized ? "Развернуть" : "Свернуть"}
+            title={windowState.isMinimized ? t("commandLine.expand") : t("commandLine.minimize")}
           >
             {windowState.isMinimized ? "🗕" : "🗕"}
           </button>
@@ -95,7 +83,7 @@ export const CommandLine: React.FC = () => {
             type="button"
             className={`${styles.controlBtn} ${styles.disabled}`}
             disabled
-            title="Полноэкранный режим недоступен (ожидает реализации перемещения)"
+            title={t("commandLine.fullscreenUnavailable")}
           >
             🗖
           </button>
@@ -103,14 +91,13 @@ export const CommandLine: React.FC = () => {
             type="button"
             className={`${styles.controlBtn} ${styles.closeBtn}`}
             onClick={handleClose}
-            title="Закрыть"
+            title={t("commandLine.close")}
           >
             ✕
           </button>
         </div>
       </div>
 
-      {/* Тело терминала */}
       {!windowState.isMinimized && (
         <div className={styles.body} onClick={() => inputRef.current?.focus()}>
           <div className={styles.historyList}>
@@ -130,7 +117,6 @@ export const CommandLine: React.FC = () => {
             <div ref={terminalEndRef} />
           </div>
 
-          {/* Строка ввода */}
           <form onSubmit={handleSubmit} className={styles.inputForm}>
             <span className={styles.promptSymbol}>kinako.sh&gt;</span>
             <input
@@ -139,7 +125,7 @@ export const CommandLine: React.FC = () => {
               className={styles.inputField}
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
-              placeholder="Введите команду (-help)..."
+              placeholder={t("commandLine.placeholder")}
               autoFocus
             />
           </form>

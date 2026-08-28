@@ -30,14 +30,20 @@ export const en = {
     emptyTask: "A task exists, but its main fields are missing.",
     emptyProject: "Tasks for this project have not yet been formed.",
     loadMore: "Show more projects [{{count}}]",
-    priorityModalTitle: "Priority calculation formula",
+    priorityModalTitle: "Work Priority System",
     priorityModal: {
       range: "Priority is in a strict range from 1.000 (high) to 40.000 (low).",
       backlogScore: "Backlog Score: Accounts for abandoned and pending tasks.",
       criticalAnomalies:
         "Critical Anomalies: Abandoned tasks with high/medium priority strongly lower the number.",
       abstractionParams: "Abstraction parameters: longtime, deadline, moral and myself price.",
-      updateNote: "Updates automatically every 24 hours.",
+      storage: "Storage: IndexedDB — data persists even if browser cache is cleared.",
+      autoUpdate: "Auto-update: recalculated every 3 hours + manual reset via console.",
+      decay: "Decay: priority slowly increases when no tasks are completed.",
+      versioning: "Versioning: algorithm auto-updates when the formula changes.",
+      i18n: "Localization: full RU/EN support for projects, tasks and stats.",
+      updateNote:
+        "Updates automatically every 3 hours, on goal changes, or algorithm version bump.",
     },
     stats: {
       "all-projects": "Total number of projects",

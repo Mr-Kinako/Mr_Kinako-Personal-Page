@@ -1,6 +1,6 @@
 import { ExecutionResult } from "../core/types";
 
-const LAST_UPDATE_DATE = "2026-08-08";
+const LAST_UPDATE_DATE = "2026-08-28";
 
 export function executeUpdate(): ExecutionResult {
   console.log("[kinako.sh:cmd:update] Выполнение команды -update");

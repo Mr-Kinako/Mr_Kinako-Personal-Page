@@ -1,44 +1,7 @@
-[data-theme="lightblue"] {
-  --bg-primary: #e0f2f1;
-  --bg-secondary: #b2dfdb;
-  --bg-content: rgba(255, 255, 255, 0.6);
-  --bg-content-border: rgba(255, 255, 255, 0.5);
-  --text-primary: #004d40;
-  --text-secondary: #00695c;
-  --accent: #26a69a;
-  --nav-bg: rgba(224, 242, 241, 0.8);
-  --scrollbar: #80cbc4;
+// src/styles/_theme.scss
 
-  // Mango SVG colors
-  --mango-body: #fbbf24;
-  --mango-highlight: #fde68a;
-  --mango-outline: #d97706;
-  --mango-leaf: #4ade80;
-  --mango-leaf-stem: #22c55e;
-}
-
-[data-theme="purple"] {
-  --bg-primary: #f3e5f5;
-  --bg-secondary: #e1bee7;
-  --bg-content: rgba(255, 255, 255, 0.6);
-  --bg-content-border: rgba(255, 255, 255, 0.5);
-  --text-primary: #4a148c;
-  --text-secondary: #6a1b9a;
-  --accent: #ab47bc;
-  --nav-bg: rgba(243, 229, 245, 0.8);
-  --scrollbar: #ce93d8;
-
-  // Mango SVG colors
-  --mango-body: #fbbf24;
-  --mango-highlight: #fde68a;
-  --mango-outline: #d97706;
-  --mango-leaf: #4ade80;
-  --mango-leaf-stem: #22c55e;
-}
-
-/* Тёмная тема по умолчанию */
-:root,
-[data-theme="dark"] {
+// === Fallback / Default Dark ===
+:root {
   --bg-primary: #18181b;
   --bg-secondary: #27272a;
   --bg-content: rgba(39, 39, 42, 0.5);
@@ -58,7 +21,104 @@
   --mango-leaf-stem: #22c55e;
 }
 
-/* Поддержка системной темы при data-theme="auto" или отсутствии атрибута */
+[data-theme="dark"] {
+  --bg-primary: #18181b;
+  --bg-secondary: #27272a;
+  --bg-content: rgba(39, 39, 42, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --accent: #ff9567;
+  --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
+  --nav-bg: rgba(24, 24, 27, 0.6);
+  --scrollbar: #3f3f46;
+}
+
+// === Deep Teal (бывшая lightblue) ===
+[data-theme="deep-teal"] {
+  --bg-primary: #0d1f1f;
+  --bg-secondary: #1a3c3c;
+  --bg-content: rgba(26, 60, 60, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #e0f7fa;
+  --text-secondary: #80cbc4;
+  --accent: #26a69a;
+  --accent-gradient: linear-gradient(145deg, #26a69a 0%, #188075 100%);
+  --nav-bg: rgba(13, 31, 31, 0.6);
+  --scrollbar: #4db6ac;
+}
+
+// === Deep Violet (бывшая purple) ===
+[data-theme="deep-violet"] {
+  --bg-primary: #1a0f2e;
+  --bg-secondary: #2d1b4e;
+  --bg-content: rgba(45, 27, 78, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f3e5f5;
+  --text-secondary: #ce93d8;
+  --accent: #ab47bc;
+  --accent-gradient: linear-gradient(145deg, #ab47bc 0%, #7b1fa2 100%);
+  --nav-bg: rgba(26, 15, 46, 0.6);
+  --scrollbar: #ba68c8;
+}
+
+// === Orange ===
+[data-theme="orange"] {
+  --bg-primary: #1a120b;
+  --bg-secondary: #2d1f14;
+  --bg-content: rgba(45, 31, 20, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #fff3e0;
+  --text-secondary: #bcaaa4;
+  --accent: #ff7043;
+  --accent-gradient: linear-gradient(145deg, #ff7043 0%, #8d2800 100%);
+  --nav-bg: rgba(26, 18, 11, 0.6);
+  --scrollbar: #5d4037;
+}
+
+// === Red ===
+[data-theme="red"] {
+  --bg-primary: #1c1010;
+  --bg-secondary: #2d1616;
+  --bg-content: rgba(45, 22, 22, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffebee;
+  --text-secondary: #ef9a9a;
+  --accent: #ef5350;
+  --accent-gradient: linear-gradient(145deg, #ef5350 0%, #7f0000 100%);
+  --nav-bg: rgba(28, 16, 16, 0.6);
+  --scrollbar: #5d1010;
+}
+
+// === Green ===
+[data-theme="green"] {
+  --bg-primary: #0d1f0d;
+  --bg-secondary: #1a3d1a;
+  --bg-content: rgba(26, 61, 26, 0.5);
+  --bg-content-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #e8f5e9;
+  --text-secondary: #81c784;
+  --accent: #76ff03;
+  --accent-gradient: linear-gradient(145deg, #76ff03 0%, #1b5e20 100%);
+  --nav-bg: rgba(13, 31, 13, 0.6);
+  --scrollbar: #2e7d32;
+}
+
+// === Mint ===
+[data-theme="mint"] {
+  --bg-primary: #e8f5e9;
+  --bg-secondary: #dcedc8;
+  --bg-content: rgba(255, 255, 255, 0.7);
+  --bg-content-border: rgba(0, 0, 0, 0.1);
+  --text-primary: #1b5e20;
+  --text-secondary: #558b2f;
+  --accent: #43a047;
+  --accent-gradient: linear-gradient(145deg, #43a047 0%, #1b5e20 100%);
+  --nav-bg: rgba(232, 245, 233, 0.7);
+  --scrollbar: #a5d6a7;
+}
+
+// === Auto (system preference) ===
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]),
   [data-theme="auto"] {
@@ -72,13 +132,6 @@
     --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
     --nav-bg: rgba(248, 250, 252, 0.7);
     --scrollbar: #cbd5e1;
-
-    // Mango SVG colors
-    --mango-body: #fbbf24;
-    --mango-highlight: #fde68a;
-    --mango-outline: #d97706;
-    --mango-leaf: #4ade80;
-    --mango-leaf-stem: #22c55e;
   }
 }
 
@@ -94,12 +147,5 @@
     --accent-gradient: linear-gradient(145deg, #ff9567 0%, #6b2b1c 100%);
     --nav-bg: rgba(24, 24, 27, 0.6);
     --scrollbar: #3f3f46;
-
-    // Mango SVG colors
-    --mango-body: #fbbf24;
-    --mango-highlight: #fde68a;
-    --mango-outline: #d97706;
-    --mango-leaf: #4ade80;
-    --mango-leaf-stem: #22c55e;
   }
 }
